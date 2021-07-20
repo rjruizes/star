@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 import os
 
-from flask.ext.script import Manager, Shell, Server
-from flask.ext.script.commands import ShowUrls, Clean
+from flask_script import Manager, Shell, Server
+from flask_script.commands import ShowUrls, Clean
 
-from werkzeug.contrib.profiler import ProfilerMiddleware
+from werkzeug.middleware.profiler import ProfilerMiddleware
+
+
 
 
 from star import create_app
@@ -29,7 +31,7 @@ def make_shell_context():
 def profile():
     app.config['PROFILE'] = True
     app.wsgi_app = ProfilerMiddleware(app.wsgi_app, restrictions=[30])
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
 
 
 if __name__ == '__main__':
